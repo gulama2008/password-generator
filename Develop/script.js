@@ -14,18 +14,13 @@ var numeric = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 var specialCharacter = ["@", "~", "!", "#", "$", "%", "^", "&", "*", "_", "-", "+", "=", "`", "|", "\\", "(", ")", "{", "}", "[", "]", ":", ";", "'", "<", ">", ",", ".", "?", "/"];
 var fullCharacterList = lowerCaseLetter.concat(upperCaseLetter).concat(numeric).concat(specialCharacter)
 
+//function to return a random character from the full character list
 var randomCharacter = function () { 
   var randomIndex = Math.floor(Math.random() * fullCharacterList.length);
   return fullCharacterList[randomIndex];
 }
 
-
-
-
-
-
 //generate original random password
-
 var originalPasswordGenerator = function () {
   //get a array of the user specified length with randomly chosen charactors
   for (var i = 0; i < passwordLength; i++) {
