@@ -54,20 +54,21 @@ function noneRepeatitiveRandomNumber(number,passwordLength) {
 }
 
 
-
 function generatePassword() { 
-  passwordLength = window.prompt("How many charactors do you want the password to contain?")-0;
+  passwordLength = window.prompt("How many charactors do you want the password to contain?");
   hasLowercase = window.confirm("Do you want the password to contain lowercase letter?");
   hasUppercase = window.confirm("Do you want the password to contain uppercase letter?");
   hasNumeric = window.confirm("Do you want the password to contain numeric?");
   hasSpecialCharacter = window.confirm("Do you want the password to contain special character?");
-
+  criteriaArray = [];
+  originalArray = [];
+  randomCriteriaIndexArray = [];
   if (hasLowercase) { 
   var randomIndex = Math.floor(Math.random() * lowerCaseLetterList.length);
   criteriaArray.push(lowerCaseLetterList[randomIndex]);
   }
   if (hasUppercase) { 
-    var randomIndex = Math.floor(Math.random() * upperCaseLetterList.length);
+    var randomIndex = Math.floor(Math.random() * upperCaseLetterList.length);i
     criteriaArray.push(upperCaseLetterList[randomIndex]);
   }
   if (hasNumeric) { 
@@ -98,9 +99,6 @@ function generatePassword() {
     return Password;
   }
 }
-
-
-
 
 
 // Write password to the #password input
