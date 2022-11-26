@@ -33,11 +33,11 @@ function originalPasswordGenerator() {
 
 
 //create a function which can obtain (criteriaArray.length) numbers of none repeatitive random index number in the final password
-function noneRepeatitiveRandomNumber(number,passwordLength) {
+function noneRepeatitiveRandomNumber(criteriaArrayLength,passwordLength) {
   var array = new Array();
   var result = Math.floor(Math.random() * passwordLength);
   array.push(result);
-  for (var i = 1; i < number; i++) {
+  for (var i = 1; i < criteriaArrayLength; i++) {
     result = Math.floor(Math.random() * passwordLength);
     for (var j = 0; j < array.length; j++) {
       if (result == array[j]) {
