@@ -33,11 +33,11 @@ function originalPasswordGenerator() {
 
 
 //create a function which can obtain (criteriaArray.length) numbers of none repeatitive random index number in the final password
-function noneRepeatitiveRandomNumber(number,passwordLength) {
+function noneRepeatitiveRandomNumber(criteriaArrayLength,passwordLength) {
   var array = new Array();
   var result = Math.floor(Math.random() * passwordLength);
   array.push(result);
-  for (var i = 1; i < number; i++) {
+  for (var i = 1; i < criteriaArrayLength; i++) {
     result = Math.floor(Math.random() * passwordLength);
     for (var j = 0; j < array.length; j++) {
       if (result == array[j]) {
@@ -56,8 +56,8 @@ function noneRepeatitiveRandomNumber(number,passwordLength) {
 
 function generatePassword() { 
   passwordLength = window.prompt("How many charactors do you want the password to contain?")-0;
-  if (passwordLength < 0 || isNaN(passwordLength)) { 
-    window.alert("Please enter a valid number")
+  if (passwordLength < 8 || passwordLength>128 || isNaN(passwordLength)) { 
+    window.alert("Please enter a valid number between 8 and 128")
     generatePassword();
   }
   hasLowercase = window.confirm("Do you want the password to contain lowercase letter?");
@@ -91,8 +91,8 @@ function generatePassword() {
   console.log(criteriaArray);
 
   if (criteriaArray.length == 0) {
-    var Password = originalPasswordGenerator().join('');
-    return Password
+    window.alert("Please choose at least one character type");
+    generatePassword();
   } else { 
     var basePassword = originalPasswordGenerator();
     console.log(basePassword);
