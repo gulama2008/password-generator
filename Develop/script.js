@@ -54,59 +54,49 @@ function noneRepeatitiveRandomNumber(criteriaArrayLength,passwordLength) {
 }
 
 
-function generatePassword() { 
+function generatePassword() {
   passwordLength = window.prompt("How many charactors do you want the password to contain?")-0;
-  if (passwordLength < 8 || passwordLength>128 || isNaN(passwordLength)) { 
+  if (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
     window.alert("Please enter a valid number between 8 and 128")
-    generatePassword();
-  }
-  hasLowercase = window.confirm("Do you want the password to contain lowercase letter?");
-  hasUppercase = window.confirm("Do you want the password to contain uppercase letter?");
-  hasNumeric = window.confirm("Do you want the password to contain numeric?");
-  hasSpecialCharacter = window.confirm("Do you want the password to contain special character?");
-  criteriaArray = [];
-  originalArray = [];
-  randomCriteriaIndexArray = [];
-  if (hasLowercase) { 
-  var randomIndex = Math.floor(Math.random() * lowerCaseLetterList.length);
-  criteriaArray.push(lowerCaseLetterList[randomIndex]);
-  }
-  if (hasUppercase) { 
-    var randomIndex = Math.floor(Math.random() * upperCaseLetterList.length);
-    criteriaArray.push(upperCaseLetterList[randomIndex]);
-  }
-  if (hasNumeric) { 
-    var randomIndex = Math.floor(Math.random() * numericList.length);
-    criteriaArray.push(numericList[randomIndex]);
-  }
-  if (hasSpecialCharacter) { 
-    var randomIndex = Math.floor(Math.random() * specialCharacterList.length);
-    criteriaArray.push(specialCharacterList[randomIndex]);
-  }
-
-  if (passwordLength<criteriaArray.length) { 
-    window.alert("Your password length is too short, please enter a larger number");
-    generatePassword();
-  }
-  console.log(criteriaArray);
-
-  if (criteriaArray.length == 0) {
-    window.alert("Please choose at least one character type");
-    generatePassword();
+    return generatePassword();
   } else { 
-    var basePassword = originalPasswordGenerator();
-    console.log(basePassword);
-    var replaceIndexArray = noneRepeatitiveRandomNumber(criteriaArray.length, passwordLength);
-    console.log(passwordLength);
-    console.log(replaceIndexArray);
-    console.log(criteriaArray);
-    for (i = 0; i < criteriaArray.length; i++) { 
-      basePassword[replaceIndexArray[i]] = criteriaArray[i];
-      console.log(basePassword);
+    hasLowercase = window.confirm("Do you want the password to contain lowercase letter?");
+    hasUppercase = window.confirm("Do you want the password to contain uppercase letter?");
+    hasNumeric = window.confirm("Do you want the password to contain numeric?");
+    hasSpecialCharacter = window.confirm("Do you want the password to contain special character?");
+    criteriaArray = [];
+    originalArray = [];
+    randomCriteriaIndexArray = [];
+    if (hasLowercase) { 
+      var randomIndex = Math.floor(Math.random() * lowerCaseLetterList.length);
+      criteriaArray.push(lowerCaseLetterList[randomIndex]);
     }
-    var Password = basePassword.join('')
-    return Password;
+    if (hasUppercase) { 
+      var randomIndex = Math.floor(Math.random() * upperCaseLetterList.length);
+      criteriaArray.push(upperCaseLetterList[randomIndex]);
+    }
+    if (hasNumeric) { 
+      var randomIndex = Math.floor(Math.random() * numericList.length);
+      criteriaArray.push(numericList[randomIndex]);
+    }
+    if (hasSpecialCharacter) { 
+      var randomIndex = Math.floor(Math.random() * specialCharacterList.length);
+      criteriaArray.push(specialCharacterList[randomIndex]);
+    }
+    if (criteriaArray.length == 0) {
+      window.alert("Please choose at least one character type");
+      generatePassword();
+    } else { 
+      var basePassword = originalPasswordGenerator();
+      var replaceIndexArray = noneRepeatitiveRandomNumber(criteriaArray.length, passwordLength);  
+      for (i = 0; i < criteriaArray.length; i++) { 
+        basePassword[replaceIndexArray[i]] = criteriaArray[i];
+      }
+      var Password = basePassword.join('')
+      return Password;
+    }
   }
+  
 }
 
 
