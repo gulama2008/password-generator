@@ -37,9 +37,9 @@ function noneRepeatitiveRandomNumber(number,passwordLength) {
   var array = new Array();
   var result = Math.floor(Math.random() * passwordLength);
   array.push(result);
-  for (i = 1; i < number; i++) {
+  for (var i = 1; i < number; i++) {
     result = Math.floor(Math.random() * passwordLength);
-    for (j = 0; j < array.length; j++) {
+    for (var j = 0; j < array.length; j++) {
       if (result == array[j]) {
         i--;
         result = -1;
@@ -55,7 +55,11 @@ function noneRepeatitiveRandomNumber(number,passwordLength) {
 
 
 function generatePassword() { 
-  passwordLength = window.prompt("How many charactors do you want the password to contain?");
+  passwordLength = window.prompt("How many charactors do you want the password to contain?")-0;
+  if (passwordLength < 0 || isNaN(passwordLength)) { 
+    window.alert("Please enter a valid number")
+    generatePassword();
+  }
   hasLowercase = window.confirm("Do you want the password to contain lowercase letter?");
   hasUppercase = window.confirm("Do you want the password to contain uppercase letter?");
   hasNumeric = window.confirm("Do you want the password to contain numeric?");
@@ -68,7 +72,7 @@ function generatePassword() {
   criteriaArray.push(lowerCaseLetterList[randomIndex]);
   }
   if (hasUppercase) { 
-    var randomIndex = Math.floor(Math.random() * upperCaseLetterList.length);i
+    var randomIndex = Math.floor(Math.random() * upperCaseLetterList.length);
     criteriaArray.push(upperCaseLetterList[randomIndex]);
   }
   if (hasNumeric) { 
@@ -78,6 +82,11 @@ function generatePassword() {
   if (hasSpecialCharacter) { 
     var randomIndex = Math.floor(Math.random() * specialCharacterList.length);
     criteriaArray.push(specialCharacterList[randomIndex]);
+  }
+
+  if (passwordLength<criteriaArray.length) { 
+    window.alert("Your password length is too short, please enter a larger number");
+    generatePassword();
   }
   console.log(criteriaArray);
 
