@@ -55,7 +55,7 @@ function noneRepeatitiveRandomNumber(criteriaArrayLength,passwordLength) {
 
 
 function generatePassword() {
-  passwordLength = window.prompt("How many charactors do you want the password to contain?")-0;
+  passwordLength = parseInt(window.prompt("How many charactors do you want the password to contain?"));
   if (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
     window.alert("Please enter a valid number between 8 and 128")
     return generatePassword();
@@ -85,7 +85,7 @@ function generatePassword() {
     }
     if (criteriaArray.length == 0) {
       window.alert("Please choose at least one character type");
-      generatePassword();
+      return generatePassword();
     } else { 
       var basePassword = originalPasswordGenerator();
       var replaceIndexArray = noneRepeatitiveRandomNumber(criteriaArray.length, passwordLength);  
