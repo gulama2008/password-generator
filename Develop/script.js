@@ -22,7 +22,7 @@ function randomCharacter() {
   return fullCharacterList[randomIndex];
 }
 
-//generate original random password
+//function which can generate original random password
 function originalPasswordGenerator() {
   //get a array of the user specified length with randomly chosen charactors
   for (var i = 0; i < passwordLength; i++) {
@@ -32,7 +32,7 @@ function originalPasswordGenerator() {
 }
 
 
-//create a function which can obtain (criteriaArray.length) numbers of none repeatitive random index number in the final password
+//function which can obtain (criteriaArray.length) numbers of none repeatitive random index number in the final password
 function noneRepeatitiveRandomNumber(criteriaArrayLength,passwordLength) {
   var array = new Array();
   var result = Math.floor(Math.random() * passwordLength);
@@ -53,6 +53,14 @@ function noneRepeatitiveRandomNumber(criteriaArrayLength,passwordLength) {
   return array;
 }
 
+//function which takes user's choices of criteria and put a character which match the certain criteria into the criteriaArray 
+function setCriteriaArray(booleanOfCriteria, characterList) { 
+  if (booleanOfCriteria) { 
+    var randomIndex = Math.floor(Math.random() * characterList.length);
+    criteriaArray.push(characterList[randomIndex]);
+  }
+
+}
 
 function generatePassword() {
   passwordLength = parseInt(window.prompt("How many charactors do you want the password to contain?"));
@@ -67,22 +75,11 @@ function generatePassword() {
     criteriaArray = [];
     originalArray = [];
     randomCriteriaIndexArray = [];
-    if (hasLowercase) { 
-      var randomIndex = Math.floor(Math.random() * lowerCaseLetterList.length);
-      criteriaArray.push(lowerCaseLetterList[randomIndex]);
-    }
-    if (hasUppercase) { 
-      var randomIndex = Math.floor(Math.random() * upperCaseLetterList.length);
-      criteriaArray.push(upperCaseLetterList[randomIndex]);
-    }
-    if (hasNumeric) { 
-      var randomIndex = Math.floor(Math.random() * numericList.length);
-      criteriaArray.push(numericList[randomIndex]);
-    }
-    if (hasSpecialCharacter) { 
-      var randomIndex = Math.floor(Math.random() * specialCharacterList.length);
-      criteriaArray.push(specialCharacterList[randomIndex]);
-    }
+
+    setCriteriaArray(hasLowercase, lowerCaseLetterList);
+    setCriteriaArray(hasUppercase, upperCaseLetterList);
+    setCriteriaArray(hasNumeric, numericList);
+    setCriteriaArray(hasSpecialCharacter, specialCharacterList);
     if (criteriaArray.length == 0) {
       window.alert("Please choose at least one character type");
       return generatePassword();
