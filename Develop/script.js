@@ -19,19 +19,17 @@ var hasSpecialCharacter
 
 //get input from user for the length of the password until the input is valid
 function userInputValidation() {
-  passwordLength = parseInt(
-    window.prompt("How many charactors do you want the password to contain?")
-  );
+  passwordLength = (window.prompt("How many charactors do you want the password to contain?"))-0;
   if (isNaN(passwordLength)) {
     window.alert("Please enter a number");
     userInputValidation();
-  } else if (passwordLength < 8 || passwordLength > 128) {
-    window.alert("The length has to be between 8 and 128 characters");
-    userInputValidation();
   } else if (passwordLength !== Math.floor(passwordLength)) {
-    window.alert("Please enter a integer");
+    window.alert("Please enter an integer");
     userInputValidation();
-  }
+  } else if (passwordLength < 8 || passwordLength > 128) {
+    window.alert("The length must be between 8 and 128 characters");
+    userInputValidation();
+  } 
 }
 
 //function which takes user's choices of criteria and make sure at least one of the criterias is chosen
@@ -41,7 +39,7 @@ function getCriteriaFromUser() {
   hasNumeric = window.confirm("Do you want the password to contain numeric?");
   hasSpecialCharacter = window.confirm("Do you want the password to contain special character?");
   if (!hasLowercase && !hasUppercase && !hasNumeric && !hasSpecialCharacter) { 
-    window.alert("You have to chose at least one type of character")
+    window.alert("You have to choose at least one type of character")
     getCriteriaFromUser();
   }
 }
