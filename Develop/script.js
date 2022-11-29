@@ -16,6 +16,44 @@ var hasUppercase
 var hasNumeric 
 var hasSpecialCharacter 
 
+
+//get input from user for the length of the password until the input is valid
+function userInputValidation() {
+  passwordLength = parseInt(
+    window.prompt("How many charactors do you want the password to contain?")
+  );
+  if (isNaN(passwordLength)) {
+    window.alert("Please enter a number");
+    userInputValidation();
+  } else if (passwordLength < 8 || passwordLength > 128) {
+    window.alert("The length has to be between 8 and 128 characters");
+    userInputValidation();
+  } else if (passwordLength !== Math.floor(passwordLength)) {
+    window.alert("Please enter a integer");
+    userInputValidation();
+  }
+}
+
+//function which takes user's choices of criteria and make sure at least one of the criterias is chosen
+function getCriteriaFromUser() {
+  hasLowercase = window.confirm("Do you want the password to contain lowercase letter?");
+  hasUppercase = window.confirm("Do you want the password to contain uppercase letter?");
+  hasNumeric = window.confirm("Do you want the password to contain numeric?");
+  hasSpecialCharacter = window.confirm("Do you want the password to contain special character?");
+  if (!hasLowercase && !hasUppercase && !hasNumeric && !hasSpecialCharacter) { 
+    window.alert("You have to chose at least one type of character")
+    getCriteriaFromUser();
+  }
+}
+ 
+//put a character which match the certain criteria into the criteriaArray
+function setCriteriaArray(booleanOfCriteria, characterList) {
+  if (booleanOfCriteria) {
+    var randomIndex = Math.floor(Math.random() * characterList.length);
+    criteriaArray.push(characterList[randomIndex]);
+  }
+}
+
 //function to return a random character from the full character list
 function randomCharacter() { 
   var randomIndex = Math.floor(Math.random() * fullCharacterList.length);
@@ -30,7 +68,6 @@ function originalPasswordGenerator() {
   }
   return originalArray;
 }
-
 
 //function which can obtain (criteriaArray.length) numbers of none repeatitive random index number in the final password
 function noneRepeatitiveRandomNumber(criteriaArrayLength,passwordLength) {
@@ -53,49 +90,26 @@ function noneRepeatitiveRandomNumber(criteriaArrayLength,passwordLength) {
   return array;
 }
 
-//function which takes user's choices of criteria and put a character which match the certain criteria into the criteriaArray 
-function setCriteriaArray(booleanOfCriteria, characterList) { 
-  if (booleanOfCriteria) { 
-    var randomIndex = Math.floor(Math.random() * characterList.length);
-    criteriaArray.push(characterList[randomIndex]);
-  }
-
-}
-
 function generatePassword() {
-  passwordLength = parseInt(window.prompt("How many charactors do you want the password to contain?"));
-  if (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
-    window.alert("Please enter a valid number between 8 and 128")
-    return generatePassword();
-  } else { 
-    hasLowercase = window.confirm("Do you want the password to contain lowercase letter?");
-    hasUppercase = window.confirm("Do you want the password to contain uppercase letter?");
-    hasNumeric = window.confirm("Do you want the password to contain numeric?");
-    hasSpecialCharacter = window.confirm("Do you want the password to contain special character?");
-    criteriaArray = [];
-    originalArray = [];
-    randomCriteriaIndexArray = [];
 
-    setCriteriaArray(hasLowercase, lowerCaseLetterList);
-    setCriteriaArray(hasUppercase, upperCaseLetterList);
-    setCriteriaArray(hasNumeric, numericList);
-    setCriteriaArray(hasSpecialCharacter, specialCharacterList);
-    if (criteriaArray.length == 0) {
-      window.alert("Please choose at least one character type");
-      return generatePassword();
-    } else { 
-      var basePassword = originalPasswordGenerator();
-      var replaceIndexArray = noneRepeatitiveRandomNumber(criteriaArray.length, passwordLength);  
-      for (i = 0; i < criteriaArray.length; i++) { 
-        basePassword[replaceIndexArray[i]] = criteriaArray[i];
-      }
-      var Password = basePassword.join('')
-      return Password;
-    }
+  criteriaArray = [];
+  originalArray = [];
+  randomCriteriaIndexArray = [];
+
+  userInputValidation();
+  getCriteriaFromUser();
+  setCriteriaArray(hasLowercase, lowerCaseLetterList);
+  setCriteriaArray(hasUppercase, upperCaseLetterList);
+  setCriteriaArray(hasNumeric, numericList);
+  setCriteriaArray(hasSpecialCharacter, specialCharacterList);
+  var basePassword = originalPasswordGenerator();
+  var replaceIndexArray = noneRepeatitiveRandomNumber(criteriaArray.length, passwordLength);
+  for (i = 0; i < criteriaArray.length; i++) {
+    basePassword[replaceIndexArray[i]] = criteriaArray[i];
   }
-  
+  var Password = basePassword.join('')
+  return Password;
 }
-
 
 // Write password to the #password input
 function writePassword() {
